@@ -1,4 +1,5 @@
 import { BlogPosts } from 'app/components/posts'
+import { PaperPosts } from 'app/components/posts_papers';
 
 export default function Page() {
   return (
@@ -7,14 +8,15 @@ export default function Page() {
         My Portfolio
       </h1>
       <p className="mb-4">
-        {`I'm a Vim enthusiast and tab advocate, finding unmatched efficiency in
-        Vim's keystroke commands and tabs' flexibility for personal viewing
-        preferences. This extends to my support for static typing, where its
-        early error detection ensures cleaner code, and my preference for dark
-        mode, which eases long coding sessions by reducing eye strain.`}
+        I'm <b>Shan Xue</b>, a recent graduate with a Master's degree in Electrical and Computer Engineering from the University of Waterloo.
+      </p>
+      <p>
+        My interests include <b>machine learning</b>, <b>cloud computing</b>, <b>distributed systems</b>, and <b>data science</b>, with a focus on practical applications. I have contributed to academic publications and projects in <b>deep learning</b>, driven by a passion for innovation and the intersection of technology and efficiency. I am continually seeking new opportunities to apply my expertise to solve complex challenges.
       </p>
       <div className="my-8">
-        <BlogPosts />
+        {/* <BlogPosts /> */}
+        <div className="font-semibold text-2xl mb-8 tracking-tighter">My Papers</div>
+        <PaperPosts />
       </div>
     </section>
   )
