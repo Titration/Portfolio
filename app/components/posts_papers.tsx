@@ -11,7 +11,7 @@ export function PaperPosts() {
     {
         title: 'A self-adaptive solution for accelerating trading strategies using JIT',
         slug: 'A%20self-adaptive%20solution%20for%20accelerating%20trading%20strategies%20using%20JIT.pdf',
-        createdAt: '2024-12-03'
+        createdAt: '2023-12-03'
     },
     {
         title: 'Dynamic Hand Gesture Recognition using a Lightweight 3D CNN Model',
