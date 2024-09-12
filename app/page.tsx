@@ -11,7 +11,7 @@ export default function Page() {
         I'm <b>Shan Xue</b>, a recent graduate with a Master's degree in Electrical and Computer Engineering from the University of Waterloo.
       </p>
       <p>
-        My interests include <b>deep learning<b>, <b>computer vision</b>, <b>LLM</b>, </b>cloud computing</b>, with a focus on practical applications. I have contributed to academic publications and projects in <b>deep learning</b>, driven by a passion for innovation and the intersection of technology and efficiency. I am continually seeking new opportunities to apply my expertise to solve complex challenges.
+        My interests include <b>deep learning</b>, <b>computer vision</b>, <b>LLM</b>, <b>cloud computing</b>, with a focus on practical applications. I have contributed to academic publications and projects in <b>deep learning</b>, driven by a passion for innovation and the intersection of technology and efficiency. I am continually seeking new opportunities to apply my expertise to solve complex challenges.
       </p>
       <div className="my-8">
         {/* <BlogPosts /> */}
