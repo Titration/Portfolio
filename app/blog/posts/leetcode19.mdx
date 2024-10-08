@@ -36,6 +36,10 @@ Constraints:
 
 ## Solution
 Approach 1: Fast & slow pointers
+
+Idea: Move the fast pointer n steps forward, then move fast pointer and slow pointer, 
+when the fast pointer reaches null, slow is at the nth node from the end of the list.
+Think this idea as a window with size n, and what we did is moving this window.
 ````JAVA
 /**
  * Definition for singly-linked list.
