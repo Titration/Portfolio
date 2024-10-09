@@ -99,3 +99,23 @@ public class Solution {
     }
 }
 ````
+
+Approach 2: Use Set()
+````
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        
+        Set<ListNode> map = new HashSet<>();
+
+        ListNode curr = head;
+        while (curr != null) {
+            if (map.contains(curr)) {
+                return curr;
+            }
+            map.add(curr);
+            curr = curr.next;
+        }
+        return curr;
+    }
+}
+````
