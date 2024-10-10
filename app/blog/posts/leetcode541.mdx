@@ -45,7 +45,7 @@ class Solution {
                 reverse(result, i, i+k);
                 continue;
             }
-            // 3。 剩余字符少于 k 个，则将剩余字符全部反转
+            // 3. 剩余字符少于 k 个，则将剩余字符全部反转
             reverse(result, i, result.length);
         }
         return new String(result);
