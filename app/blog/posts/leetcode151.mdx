@@ -1,0 +1,96 @@
+---
+title: 'Leetcode 151. Reverse Words in a String'
+publishedAt: '2024-10-11'
+summary: 'String'
+number: '151'
+---
+
+## 151. Reverse Words in a String
+
+Given an input string `s`, reverse the order of the words.
+
+A word is defined as a sequence of non-space characters. The words in `s` will be separated by at least one space.
+
+Return a string of the words in reverse order concatenated by a single space.
+
+Note that `s` may contain leading or trailing spaces or multiple spaces between two words. The returned string should only have a single space separating the words. Do not include any extra spaces.
+
+Example 1
+`````
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+`````
+
+Example 2
+`````
+Input: s = "  hello world  "
+Output: "world hello"
+Explanation: Your reversed string should not contain leading or trailing spaces.
+`````
+
+Example 3
+`````
+Input: s = "a good   example"
+Output: "example good a"
+Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
+`````
+
+Constraints:
+
+- `1 <= s.length <= 104`
+- `s` contains English letters (upper-case and lower-case), digits, and spaces ' '.
+- There is at least one word in `s`.
+
+## Solution
+Approach 1: Remove spaces (ref 27.Remove Element), and reverse the string
+````JAVA
+// Time complexity: O(n)
+// String 的 toCharArray() 方法底层会 new 一个和原字符串相同大小的 char 数组，空间复杂度：O(n)
+class Solution {
+    public String reverseWords(String s) {
+        
+        char[] array = s.toCharArray();
+        // remove the extra black space
+        int slow = 0;
+        for (int fast = 0; fast < array.length; fast++) {
+            if (array[fast] != ' ') {
+                if (slow != 0) {
+                    array[slow++] = ' ';
+                }
+                while (fast < array.length && array[fast] != ' ') {
+                    array[slow++] = array[fast++];
+                }
+            }
+        }
+        // reverse
+        int l = 0;
+        int r = slow; // new length
+        reverse(array, l, r);
+        for (int i = 0; i < r; i++) {
+            if (array[i] == ' ') {
+                reverse(array, l, i);
+                l = i + 1;
+            }
+        }
+        reverse(array, l, r);
+
+        return new String(array, 0, r);
+    }
+    public void reverse(char[] array, int start, int end) {
+        int l = start;
+        int r = end - 1;
+        while (l < r) {
+            char temp = array[l];
+            array[l] = array[r];
+            array[r] = temp;
+            l++;
+            r--;
+        }
+    }
+}
+````
+
+Approach 2: Same approach but different implementation of removing spaces
+````JAVA
+// Time complexity: O(n)
+````
