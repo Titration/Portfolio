@@ -1,0 +1,39 @@
+---
+title: 'How to implement LPS (Longest Prefix Suffix)'
+publishedAt: '2024-10-19'
+summary: 'String'
+number: ''
+---
+
+## How to implement LPS (Longest Prefix Suffix)
+Implement an array named `next` that realized LPS.
+
+## Solution
+Approach 1: Two pointers
+````JAVA
+// Time complexity: O(n)
+class kmp {
+    public int[] build_next(char[] array) {
+
+        int[] next = new int[array.length];
+        int prev_len = 0;
+        int i = 1;
+
+        while (i < array.length) {
+            if (array[i] == array[prev_len]) {
+                prev_len++;
+                next[i] = prev_len;
+                i++;
+            }
+            else if (prev_len == 0) {
+                next[i] = 0;
+                i++;
+            }
+            else {
+                prev_len = next[prev_len - 1];
+            }
+        }
+        return next;
+    }
+}
+````
