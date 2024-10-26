@@ -1,0 +1,156 @@
+---
+title: 'Leetcode 234. Palindrome Linked List'
+publishedAt: '2024-10-26'
+summary: 'Linked List'
+number: '234'
+---
+
+## 234. Palindrome Linked List
+
+Given the `head` of a singly linked list, return `true` if it is a palindrome or `false` otherwise.
+(A palindrome is a sequence that reads the same forward and backward.)
+
+Example 1
+`````
+Input: head = [1,2,2,1]
+Output: true
+`````
+
+Example 2
+`````
+Input: head = [1,2]
+Output: false
+`````
+
+Constraints:
+
+- The number of nodes in the list is in the range `[1, 10^5]`.
+- `0 <= Node.val <= 9`
+
+Follow up: Could you do it in O(n) time and O(1) space?
+
+## Solution
+Approach 1: Fast & slow pointers
+````JAVA
+// Time complexity: O(n)
+// Space complexity: O(1)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        // reverse the second half linked list
+        ListNode prev = null;
+        ListNode curr = slow;
+        ListNode nxt;
+        while (curr != null) {
+            nxt = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+        // compare the value
+        while (head != null && prev != null) {
+            if (head.val != prev.val) {
+                return false;
+            }
+            head = head.next;
+            prev = prev.next;
+        }
+        return true;
+    }
+}
+````
+
+Approach 2: Stack + Fast & slow pointers
+
+Idea: Using a stack because of LIFO(last in first out)
+````JAVA
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        
+        Stack<ListNode> stack = new Stack<>();
+        
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        while (slow != null) {
+            stack.push(slow);
+            slow = slow.next;
+        }
+
+        while (!stack.isEmpty()) {
+            if (head.val != stack.pop().val) {
+                return false;
+            }
+            head = head.next;
+        }
+        return true;
+    }
+}
+````
+
+Approach 3: ArrayList + Two pointers
+````JAVA
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        
+        List<Integer> list = new ArrayList<>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+
+        int left = 0;
+        int right = list.size() - 1;
+        while (left < right) { // < or <= both works
+            if (list.get(left) != list.get(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+````
+
+Approach 4: ArrayList
+````JAVA
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        
+        List<Integer> list = new ArrayList<>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+
+        for (int i = 0; i < list.size() / 2; i++) {
+            if (list.get(i) != list.get(list.size() - 1 - i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+````
