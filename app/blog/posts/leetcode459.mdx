@@ -35,8 +35,11 @@ Constraints:
 
 ## Solution
 Approach 1: KMP algorithm
+
+Idea: 在理解KMP算法的next数组的基础上，这样想：next数组存放的元素是某个阶段上重复的元素个数，由于能组成重复元素的长串next数组一定是单调递增的，取next最后一个元素就是最长相同前后缀（即重复的元素个数，记为max），len - max就是最小重复子串长度，如果len能被最小重复字串长度整除，说明长串均可由其构成。
 ````JAVA
 // Time complexity: O(n)
+// Space complexity: O(n)
 class Solution {
     public boolean repeatedSubstringPattern(String s) {
         if (s.isEmpty()) {
