@@ -92,23 +92,21 @@ class Solution {
 Approach 2: Sliding window
 ````JAVA
 // Time complexity: O(n)
-// Space complexity: O(n) because of using Set
+// Space complexity: O(256) because of ASCII size extended from 128 to 256. (128 also pass all the tests)
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         
-        int res = 0;
+        int[] map = new int[256];
         int left = 0;
-        Set<Character> hashset = new HashSet<>();
-
+        int res = 0;
         for (int right = 0; right < s.length(); right++) {
-            while (hashset.contains(s.charAt(right))) {
-                hashset.remove(s.charAt(left));
+            map[s.charAt(right)]++;
+            while (map[s.charAt(right)] > 1) {
+                map[s.charAt(left)]--;
                 left++;
             }
-            hashset.add(s.charAt(right));
-            res = Math.max(res, right - left + 1);
+            res = Math.max(res, right - left + 1); 
         }
-
         return res;
     }
 }
