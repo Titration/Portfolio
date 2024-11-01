@@ -46,6 +46,14 @@ Constraints:
 
 ## Solution
 Approach 1: Stack
+
+Idea: 
+
+case 1: 字符串里左方向的括号多余了 ，所以不匹配, eg. `([{}]()`
+
+case 2: 括号没有多余，但是 括号的类型没有匹配上, eg. `([{}}}`
+
+case 3: 字符串里右方向的括号多余了，所以不匹配, eg. `([{}])))`
 ````JAVA
 // Time complexity: O(n)
 // Space complexity: O(n)
