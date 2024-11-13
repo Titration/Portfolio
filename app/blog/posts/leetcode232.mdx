@@ -68,10 +68,16 @@ class MyQueue {
         return stack_out.pop();
     }
     
-    public int peek() { // Another way would be pop() and then add the removed element back.
+    public int peek() { 
         dumpStackIn();
         return stack_out.peek();
     }
+    // Another way: use pop() and then add the removed element back.
+    // public int peek() {
+    //     int removed_element = this.pop();
+    //     stack_out.push(removed_element);
+    //     return removed_element;
+    // }
     
     public boolean empty() {
         return (stack_in.isEmpty() && stack_out.isEmpty());
