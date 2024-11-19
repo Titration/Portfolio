@@ -1,0 +1,55 @@
+---
+title: 'Oracle SQL Questions'
+publishedAt: '2024-11-18'
+summary: 'SQL'
+number: ''
+---
+
+## Oracle SQL Questions
+
+```
+Employees Table 
+| EmpID | Name  | Supervisor | Location |
+| :---  | :---: | :---:      |     ---: |
+| 34    | Amy   |            | NY       |
+| 33    | Ben   | 34         | NY       |
+| 30    | Cathy | 34         | NY       |
+```
+
+```
+Bonus Table
+| EmpID | NBonus |
+| :---  |   ---: |
+| 34    | 200    |
+| 31    | 500    |
+```
+
+Q1. 
+Select all name from employees whose supervisor is ‘Amy’. 
+(Write 3 ways, 2nd way is use subquery in a query, 3rd way is using join). 
+    
+(This video explains the SELF JOIN, https://www.youtube.com/watch?v=eKyj16bX_fs)
+
+## Solution
+Approach 1: 
+````sql
+SELECT Name FROM Employees WHERE Supervisor = 34;
+````
+
+Approach 2: 
+````sql
+SELECT Name FROM Employees WHERE Supervisor = 
+(SELECT EmpID FROM Employees WHERE Name = 'Amy');
+````
+
+Approach 3: 
+````sql
+SELECT e1.Name 
+FROM Employees as e1
+JOIN Employees as e2 ON e2.EmpID = e1.Supervisor
+WHERE e2.Name = 'Amy';
+````
+
+Q2. 
+
+Q3.
