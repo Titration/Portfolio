@@ -1,0 +1,34 @@
+---
+title: 'How to implement a monotonic decreasing queue'
+publishedAt: '2024-11-21'
+summary: 'Queue'
+number: ''
+---
+
+## Monotonic Decreasing Queue
+Implement a monotonic decreasing queue.
+
+## Solution
+Approach 1:
+````JAVA
+class MonotonicQueue {
+    Deque<Integer> deque = new LinkedList<>();
+    
+    void poll(int value) {
+        if (!deque.isEmpty() && deque.peek() == value) {
+            deque.poll();
+        }
+    }
+
+    void add(int value) {
+        while (!deque.isEmpty() && deque.peekLast() < value) {
+            deque.removeLast();
+        }
+        deque.add(value);
+    }
+
+    int peek() {
+        return deque.peek();
+    }
+}
+````
