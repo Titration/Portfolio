@@ -79,3 +79,32 @@ class Solution {
     }
 }
 ````
+
+Approach 1.2: Iteration without reversing the result list
+````JAVA
+// Time complexity: O(n)
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+
+        List<List<Integer>> result = new LinkedList<>();
+        if (root == null) { return result; }
+
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        deque.offer(root);
+        while (!deque.isEmpty()) {
+            List<Integer> itemList = new ArrayList<>();
+            int size = deque.size();
+            
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = deque.poll(); //removeFirst
+                itemList.add(curr.val);
+
+                if (curr.left != null) { deque.offer(curr.left); }
+                if (curr.right != null) { deque.offer(curr.right); }
+            }
+            result.addFirst(itemList);
+        }
+        return result;
+    }
+}
+````
