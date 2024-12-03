@@ -86,3 +86,37 @@ class Solution {
     }
 }
 ````
+
+## Solution
+Approach 1.2: Iteration
+````JAVA
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        
+        List<Integer> result = new ArrayList<>();
+        if (root == null) { return result; }
+
+        Deque<TreeNode> deque = new ArrayDeque<>();
+        deque.offer(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = deque.pop();
+                
+                if (curr.right != null) {
+                    deque.offer(curr.right);
+                }
+                if (curr.left != null) {
+                    deque.offer(curr.left);
+                }
+                if (i == 0) {
+                    result.add(curr.val);
+                }
+            }
+            
+        }
+        return result;
+    }
+}
+````
