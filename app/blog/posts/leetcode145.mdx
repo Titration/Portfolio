@@ -42,8 +42,6 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 ## Solution
 Approach 1: Recursion
 ````JAVA
-// Time complexity: O(n) since every node in the tree is visited exactly once.
-// Space complexity: O(n)
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -59,6 +57,8 @@ Approach 1: Recursion
  *     }
  * }
  */
+// Time complexity: O(n) since every node in the tree is visited exactly once.
+// Space complexity: O(n)
 class Solution {
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
