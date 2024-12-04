@@ -71,4 +71,27 @@ class Solution {
 }
 ````
 
-Approach 2: Iteration
+Approach 2: Iteration, Stack
+````JAVA
+// Time complexity: O(n)
+class Solution {
+    public List<Integer> postorder(Node root) {
+        
+        List<Integer> result = new ArrayList<>();
+        if (root == null) return result;
+
+        Deque<Node> deque = new ArrayDeque<>();
+        deque.push(root);
+
+        while (!deque.isEmpty()) {
+            Node curr = deque.pop();
+            result.add(curr.val);
+            for (Node n : curr.children) {
+                deque.push(n);
+            }
+        }
+        Collections.reverse(result);
+        return result;
+    }
+}
+````
