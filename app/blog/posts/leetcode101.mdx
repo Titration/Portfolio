@@ -1,0 +1,127 @@
+---
+title: 'Leetcode 101. Symmetric Tree'
+publishedAt: '2024-12-04'
+summary: 'Tree'
+number: '101'
+---
+
+## 101. Symmetric Tree
+
+Given the `root` of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+
+
+Example 1
+`````
+Input: root = [1,2,2,3,4,4,3]
+Output: true
+`````
+
+Example 2
+`````
+Input: root = [1,2,2,null,3,null,3]
+Output: false
+`````
+
+Constraints:
+
+- The number of nodes in the tree is in the range `[1, 1000]`.
+- `-100 <= Node.val <= 100`
+
+
+Follow up: Could you solve it both recursively and iteratively?
+
+
+## Solution
+Approach 1: Recursion
+````JAVA
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ *
+// Time complexity: O(n)
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) return true;
+        return compare(root.left, root.right);
+    }
+    public boolean compare(TreeNode left, TreeNode right) {
+        if (left == null && right != null) return false;
+        else if (left != null && right == null) return false;
+        else if (left == null && right == null) return true;
+        else if (left.val != right.val) return false;
+        
+        boolean outside = compare(left.left, right.right); 
+        boolean inside = compare(left.right, right.left);
+        boolean isSame = (outside && inside);
+        return isSame;
+    }
+}
+````
+
+Approach 2: Iteration, Deque (Double Ended Queue) Approach
+
+LinkedList is used because the implementation of LinkedList can support NULL Elements.
+````JAVA
+// Time complexity: O(n)
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.offerFirst(root.left);
+        deque.offerLast(root.right);
+        while (!deque.isEmpty()) {
+            TreeNode left_node = deque.pollFirst();
+            TreeNode right_node = deque.pollLast();
+            if (left_node == null && right_node == null) continue;
+            if (left_node == null || right_node == null || left_node.val != right_node.val) {
+                return false;
+            }
+            deque.offerFirst(left_node.left);
+            deque.offerFirst(left_node.right);
+            deque.offerLast(right_node.right);
+            deque.offerLast(right_node.left);
+        }
+        return true;
+    }
+}
+````
+
+Approach 2.2: Iteration, Stack Approach
+````JAVA
+// Time complexity: O(n)
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.offer(root.left);
+        deque.offer(root.right);
+        while (!deque.isEmpty()) {
+            TreeNode left_node = deque.poll();
+            TreeNode right_node = deque.poll();
+            
+            if (left_node == null && right_node == null) continue;
+
+            if (left_node != null && right_node == null) return false;
+            if (left_node == null && right_node != null) return false;
+            if (left_node.val != right_node.val) return false;
+
+            deque.offer(left_node.left);
+            deque.offer(right_node.right);
+            deque.offer(left_node.right);
+            deque.offer(right_node.left);
+        }
+        return true;
+    }
+}
+````
