@@ -30,7 +30,7 @@ Constraints:
 - `-100 <= Node.val <= 100`
 
 ## Solution
-Approach 1: Iteration
+Approach 1: Level Order Traversal, Iteration
 ````JAVA
 /**
  * Definition for a binary tree node.
@@ -69,4 +69,47 @@ class Solution {
         return depth;
     }
 }
+````
+
+Approach 2: Postorder Traversal, Recursion
+
+This approach can be applied since the MAX depth of a tree is its height. 
+The postorder traversal usually is used to calculate the height of a tree.
+
+````JAVA
+class Solution {
+    public int maxDepth(TreeNode root) {
+        int result = getHeight(root, 0);
+        return result;
+    }
+    public int getHeight(TreeNode root, int height) {
+        if (root == null) { return height; }
+
+        int left_height = getHeight(root.left, height);
+        int right_height = getHeight(root.right, height);
+        int res = 1 + Math.max(left_height, right_height);
+        return res;
+    }
+}
+````
+
+Approach 2.2: Postorder Traversal, Recursion (One line style.)
+````JAVA
+class Solution {
+    public int maxDepth(TreeNode root) {
+        return getHeight(root, 0);
+    }
+    public int getHeight(TreeNode root, int height) {
+        if (root == null) { return height; }
+        return 1 + Math.max(getHeight(root.left, height), getHeight(root.right, height));
+    }
+}
+````
+
+Approach 3: Preorder Traversal, Recursion
+
+The preorder traversal usually is used to calculate the depth of a tree. 真正求深度的逻辑！
+
+````JAVA
+
 ````
