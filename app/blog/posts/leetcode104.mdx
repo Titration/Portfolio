@@ -110,3 +110,32 @@ Approach 3: Preorder Traversal, Recursion
 
 The preorder traversal usually is used to calculate the depth of a tree. 真正求深度的逻辑！
 
+````JAVA
+class Solution {
+    private int result;
+
+    public int maxDepth(TreeNode root) {
+        result = 0;
+        
+        if (root == null) return result;
+        getDepth(root, 1);
+        return result;
+    }
+    public void getDepth(TreeNode root, int depth) {      
+        result = Math.max(result, depth);
+
+        if (root.left == null && root.right == null) return;
+
+        if (root.left != null) {
+            depth++;
+            getDepth(root.left, depth);
+            depth--;
+        }
+        if (root.right != null) {
+            depth++;
+            getDepth(root.right, depth);
+            depth--;
+        }
+    }
+}
+````
