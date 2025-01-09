@@ -1,0 +1,29 @@
+---
+title: 'Binary Search'
+publishedAt: '2025-01-09'
+summary: 'Binary Search'
+number: ''
+---
+
+## Binary Search
+
+### Understand interval `[]` and `()`.
+```
+[a, b] is inclusive interval, a <= x <= b
+(a, b) is exclusive interval, a < x < b. 
+eg: (1,5) = 1 < x < 5 = 2 <= x <= 4 = [2, 4]
+```
+
+### How to avoid Integer overflow in Binary Search?
+```
+int mid = (left + right) / 2;
+```
+We can convert it to:
+````
+int mid 
+= left / 2 + right / 2 
+= (left - left / 2) + right / 2 
+= left + right / 2 - left / 2
+= left + (right - left) / 2;
+````
+
