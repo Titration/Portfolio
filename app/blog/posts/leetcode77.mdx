@@ -35,8 +35,19 @@ Constraints:
 ## Solution
 Approach 1: Backtracking without Pruning Optimization
 ````JAVA
-// Time complexity: O(n * 2^n)
-// Space complexity: O(n)
+/* 
+Time complexity: O(k * 2^n), which simplifies to O(n * 2^n) in the worst case 
+where k = O(n).
+
+The total number of nodes in the recursion tree corresponds to the number of 
+subsets that can be formed, which is `2^n`, since for each element, you either 
+include it or exclude it.
+
+The copy operation `new ArrayList<>(path)` takes O(k) time because `path` 
+contains at most k elements.
+ 
+Space complexity: O(n).
+*/
 class Solution {
     List<List<Integer>> result = new ArrayList<>();
     List<Integer> path = new LinkedList<>(); // new ArrayList<>();
