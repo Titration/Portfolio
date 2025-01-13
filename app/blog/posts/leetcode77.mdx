@@ -35,7 +35,8 @@ Constraints:
 ## Solution
 Approach 1: Backtracking without Pruning Optimization
 ````JAVA
-// Time complexity: O(n)
+// Time complexity: O(n * 2^n)
+// Space complexity: O(n)
 class Solution {
     List<List<Integer>> result = new ArrayList<>();
     List<Integer> path = new LinkedList<>(); // new ArrayList<>();
