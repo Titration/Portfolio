@@ -104,7 +104,7 @@ class Solution {
             }
             return; 
         }
-        for (int i = startIndex; i <= 9 - (k - path.size()) + 1; i++) { // pruning
+        for (int i = startIndex; i <= 9 - (k - path.size()) + 1; i++) { // pruning 9 - (k - path.size()) + 1
             sum += i;
             path.add(i);
             backtracking(targetSum, k, sum, i + 1);
@@ -115,3 +115,70 @@ class Solution {
 }
 ````
 
+Approach 2.2: Backtracking with Pruning Optimization
+````JAVA
+class Solution {
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> path = new LinkedList<>();
+
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        backtracking(n, k, 0, 1);
+        return result;
+    }
+    public void backtracking(int targetSum, int k, int sum, int startIndex) {
+        if (sum > targetSum) { // pruning
+            return;
+        }
+        if (path.size() > k) { // pruning, execution performance is same as 9 - (k - path.size()) + 1
+            return;
+        }
+        if (path.size() == k) {
+            if (sum == targetSum) {
+                result.add(new ArrayList<>(path));
+            }
+            return; 
+        }
+        for (int i = startIndex; i <= 9; i++) { // pruning
+            sum += i;
+            path.add(i);
+            backtracking(targetSum, k, sum, i + 1);
+            sum -= i;
+            path.removeLast();
+        }
+    }
+}
+````
+
+Approach 3: Backtracking with Pruning Optimization
+````JAVA
+class Solution {
+    List<List<Integer>> res = new ArrayList<>();
+    List<Integer> list = new ArrayList<>();
+
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        res.clear();
+        list.clear();
+        backtracking(k, n, 9);
+        return res;
+    }
+
+    private void backtracking(int k, int n, int maxNum) {
+        if (k == 0 && n == 0) {
+            res.add(new ArrayList<>(list));
+            return;
+        }
+
+        // 因为不能重复，并且单个数字最大值是maxNum，所以sum最大值为
+        // （maxNum + (maxNum - 1) + ... + (maxNum - k + 1)） == k * maxNum - k*(k - 1) / 2
+        if (maxNum == 0
+                || n > k * maxNum - k * (k - 1) / 2
+                || n < (1 + k) * k / 2) {
+            return;
+        }
+        list.add(maxNum);
+        backtracking(k - 1, n - maxNum, maxNum - 1);
+        list.remove(list.size() - 1);
+        backtracking(k, n, maxNum - 1);
+    }
+}
+````
