@@ -40,3 +40,11 @@ pnpm dev
 ```
 
 Deploy it to the cloud with [Vercel](https://vercel.com/templates) ([Documentation](https://nextjs.org/docs/app/building-your-application/deploying)).
+
+### Run
+
+```
+npm run dev
+npm run build
+npm run start
+```
