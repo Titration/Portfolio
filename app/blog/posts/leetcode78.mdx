@@ -35,11 +35,14 @@ Constraints:
 
 ## Solution
 Approach 1: Backtracking
-
-Idea: Thinking it a tree.
-            []
-    []              [1]             pick 1 or not
-[]      [2]     [1]     [1,2]       pick 2 or not
+Idea: Thinking it as a tree.
+````
+          []
+       /      \
+    []          [1]           pick 1 or not
+  /    \       /   \
+[]      [2] [1]   [1,2]       pick 2 or not
+````
 
 ````JAVA
 // Time complexity: O(2^n)
