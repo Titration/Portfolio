@@ -1,0 +1,50 @@
+---
+title: 'Frequency of a Substring in a String'
+publishedAt: '2025-01-23'
+summary: 'String'
+number: ''
+---
+
+## Frequency of a Substring in a String
+
+Given an input string and a pattern, the task is to find the frequency of occurrences of the string pattern in a given string.
+
+
+Example 1
+`````
+Input: pattern = “man”, string = “dhimanman”
+Output: 2
+`````
+
+Example 2
+`````
+Input: pattern = “nn”, string = “Banana”
+Output: 0
+`````
+
+Example 3
+`````
+Input: pattern = “aa”, string = “aaaaa”
+Output : 4
+`````
+
+
+## Solution
+Approach 1: Brute force (compare every characters)
+````JAVA
+// Time complexity: O((n - m + 1) * m) = O(n^2)
+// Space complexity: O(1)
+class Solution {
+    public int countSubstring(String pattern, String input) {
+        int count = 0;
+        for (int i = 0; i < input.length() - pattern.length() + 1; i++) {
+            int j;
+            for (j = 0; j < pattern.length(); j++) {
+                if (pattern.charAt(j) != input.charAt(i + j)) { break; }
+            }
+            if (j == pattern.length()) { count++; }
+        }
+        return count;
+    }
+}
+````
