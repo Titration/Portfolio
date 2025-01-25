@@ -1,0 +1,59 @@
+---
+title: 'OA Practice Missing Integer'
+publishedAt: '2025-01-25'
+summary: 'Array, Math'
+number: ''
+---
+
+## Missing Integer
+
+Write a function:
+
+class Solution { public int solution(int[] A); } that, given an array A of N integers, returns the smallest positive integer (greater than 0) that does not occur in A.
+
+
+Example 1
+`````
+Given A = [1, 3, 6, 4, 1, 2], the function should return 5.
+`````
+
+Example 2
+`````
+Given A = [1, 2, 3], the function should return 4.
+`````
+
+Example 3
+`````
+Given A = [−1, −3], the function should return 1.
+`````
+
+
+Constraints:
+
+- N is an integer within the range `[1..100,000]`
+- Each element of array A is an integer within the range `[−1,000,000..1,000,000]`
+
+## Solution
+Approach 1: Use an array map to store values
+````JAVA
+// Time complexity: O(n)
+class Solution {
+    public int solution(int[] A) {
+        // Implement your solution here
+        int n = A.length;
+        boolean[] map = new boolean[n + 1]; // [0, 1, n + 1] ignore 0
+
+        for (int item : A) {
+            if (item > 0 && item <= n) {
+                map[item] = true;
+            }
+        }
+        for (int i = 1; i < map.length; i++) {
+            if (map[i] == false) {
+                return i;
+            }
+        }
+        return n + 1;
+    }
+}
+````
