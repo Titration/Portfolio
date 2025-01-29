@@ -1,0 +1,53 @@
+---
+title: 'Online Interview Common Email Addresses'
+publishedAt: '2025-01-28'
+summary: 'Set'
+number: ''
+---
+
+## Common Email Addresses
+
+Write a function to find the email address you and I share.
+
+Given two lists of emails you are tasked with completing the method provided called `commonEmails`.
+
+`commonEmails` is expected to respond a collection of emails that exist in common between the two input lists, you, and I.
+
+You are free to change all aspects of the method.
+
+
+## Solution
+Approach 1: [Two pointers]
+````JAVA
+// Time complexity: O(n)
+public class CommonEmailAddresses {
+
+    public static Object commonEmails(Object myEmails, Object yourEmails) {
+        if (!(myEmails instanceof List) || !(yourEmails instanceof List)){
+            throw new IllegalArgumentException("Inputs must be lists of strings");
+        }
+
+        List<String> myList = (List<String>)myEmails;
+        List<String> yourList = (List<String>)yourEmails;
+        List<String> result = new ArrayList<>();
+
+        Set<String> hashSet = new HashSet<>();
+        for (String item : myList) {
+            hashSet.add(item);
+        }
+        for (String item : yourList) {
+            if (hashSet.contains(item)) {
+                result.add(item);
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Object yourEmails = Arrays.asList("a@a.com", "b@b.com", "c@c.com");
+        Object myEmails = Arrays.asList("b@b.com", "c@c.com");
+        System.out.println(commonEmails(yourEmails, myEmails));
+    }
+}
+
+````
