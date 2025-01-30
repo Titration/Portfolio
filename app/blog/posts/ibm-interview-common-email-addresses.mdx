@@ -17,7 +17,7 @@ You are free to change all aspects of the method.
 
 
 ## Solution
-Approach 1: [Two pointers]
+Approach 1: HashSet
 ````JAVA
 // Time complexity: O(n)
 public class CommonEmailAddresses {
@@ -49,5 +49,43 @@ public class CommonEmailAddresses {
         System.out.println(commonEmails(yourEmails, myEmails));
     }
 }
+````
 
+Approach 2: Sort, Two Pointers
+````JAVA
+public class CommonEmailAddresses {
+    public static Object commonEmailsSorted(Object myEmails, Object yourEmails) { // Sort + Two pointers
+        if (!(myEmails instanceof List) || !(yourEmails instanceof List)) {
+            throw new IllegalArgumentException("Input must be lists of strings");
+        }
+        /*
+          Collections.sort(my_list); 和 Collections.sort(your_list); 会修改原始列表，而 main 方法中 Arrays.asList(...) 生成的 List 是 不可变的，直接修改会抛出 UnsupportedOperationException。
+         */
+        List<String> my_list = new ArrayList<>((List<String>)myEmails);
+        List<String> your_list = new ArrayList<>((List<String>)yourEmails);
+        Collections.sort(my_list);
+        Collections.sort(your_list);
+        List<String> result = new ArrayList<>();
+
+        int p1 = 0;
+        int p2 = 0;
+        while (p1 < my_list.size() && p2 < your_list.size()) {
+            int compare = my_list.get(p1).compareTo(your_list.get(p2));
+            if (compare == 0) { // 0 means they are equal
+                result.add(my_list.get(p1));
+                p1++;
+                p2++;
+            }
+            else if (compare < 0) { p1++; }
+            else { p2++; }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Object yourEmails = Arrays.asList("a@a.com", "b@b.com", "c@c.com");
+        Object myEmails = Arrays.asList("b@b.com", "c@c.com");
+        System.out.println(commonEmailsSorted(yourEmails, myEmails));
+    }
+}
 ````
