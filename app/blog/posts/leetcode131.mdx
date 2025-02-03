@@ -1,0 +1,77 @@
+---
+title: 'Leetcode 131. Palindrome Partitioning'
+publishedAt: '2025-02-03'
+summary: 'Backtracking'
+number: '131'
+---
+
+## 131. Palindrome Partitioning
+
+Given a string `s`, partition `s` such that every 
+substring of the partition is a palindrome. Return all possible palindrome partitioning of `s`.
+
+(A substring is a contiguous non-empty sequence of characters within a string.)
+(A palindrome is a string that reads the same forward and backward.)
+
+
+Example 1
+`````
+Input: s = "aab"
+Output: [["a","a","b"],["aa","b"]]
+`````
+
+Example 2
+`````
+Input: s = "a"
+Output: [["a"]]
+`````
+
+
+Constraints:
+
+- `1 <= s.length <= 16`
+- `s` contains only lowercase English letters.
+
+
+## Solution
+Approach 1: Backtracking
+````JAVA
+// Time complexity: O(n)
+class Solution {
+    List<List<String>> result = new ArrayList<>();
+    List<String> path = new LinkedList<>();
+
+    public List<List<String>> partition(String s) {
+        backtracking(s, 0, new StringBuilder());
+        return result;
+    }
+
+    private void backtracking(String s, int startIndex, StringBuilder sb) {
+        if (startIndex == s.length()) {
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        for (int i = startIndex; i < s.length(); i++) {
+            sb.append(s.charAt(i));
+            if (isPalindrome(sb)) {
+                path.add(sb.toString());
+                backtracking(s, i + 1, new StringBuilder());
+                path.removeLast();
+            }
+        }     
+    }
+
+    private boolean isPalindrome(StringBuilder sb) {
+        int left = 0;
+        int right = sb.length() - 1;
+        while (left < right) {
+            if (sb.charAt(left) != sb.charAt(right)) { return false; }
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+````
+
+Approach 2: Backtracking with Dynamic programming
