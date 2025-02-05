@@ -40,7 +40,7 @@ Constraints:
 
 
 ## Solution
-Approach 1: Backtracking
+Approach 1: Backtracking, StringBuilder
 ````JAVA
 // Time complexity: O(3^4), 
 // IP address has max 4 digits, each digit has max 3 possible partitions,
@@ -84,6 +84,57 @@ class Solution {
         for (int i = start; i <= end; i++) {
             int digit = sb.charAt(i) - '0';
             num = num * 10 + digit;
+            if (num > 255) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
+````
+
+Approach 1.2: Backtracking, String
+````JAVA
+class Solution {
+    List<String> result = new ArrayList<>();
+
+    public List<String> restoreIpAddresses(String s) {
+        backtracking(s, 0, 0);
+        return result;
+    }
+    private void backtracking(String s, int countDots, int startIndex) {
+        if (countDots == 3) {
+            if (isValid(s, startIndex, s.length() - 1)) { // check if the 4th IP section valid
+                result.add(s);
+            }
+            return;
+        }
+        for (int i = startIndex; i < s.length(); i++) {
+            if (isValid(s, startIndex, i)) {
+                s = s.substring(0, i + 1) + '.' + s.substring(i + 1);
+                countDots++;
+                backtracking(s, countDots, i + 2);
+                countDots--;
+                s = s.substring(0, i + 1) + s.substring(i + 2);
+            }
+            else {
+                break;
+            }
+        }
+    }
+    private boolean isValid(String s, int start, int end) {
+        if (start > end) {
+            return false;
+        }
+        if (s.charAt(start) == '0' && start != end) { // check if start with 0
+            return false;
+        }
+        int num = 0;
+        for (int i = start; i <= end; i++) {
+            if (s.charAt(i) > '9' || s.charAt(i) < '0') { // check if non-digits symbols existing
+                return false;
+            }
+            num = num * 10 + (s.charAt(i) - '0');
             if (num > 255) {
                 return false;
             }
