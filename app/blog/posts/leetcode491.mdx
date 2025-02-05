@@ -1,0 +1,90 @@
+---
+title: 'Leetcode 491. Non-decreasing Subsequences'
+publishedAt: '2025-02-05'
+summary: 'Backtracking'
+number: '491'
+---
+
+## 491. Non-decreasing Subsequences
+
+Given an integer array `nums`, return all the different possible non-decreasing subsequences of the given array with at least two elements. You may return the answer in any order.
+
+
+Example 1
+`````
+Input: nums = [4,6,7,7]
+Output: [[4,6],[4,6,7],[4,6,7,7],[4,7],[4,7,7],[6,7],[6,7,7],[7,7]]
+`````
+
+Example 2
+`````
+Input: nums = [4,4,3,2,1]
+Output: [[4,4]]
+`````
+
+
+Constraints:
+
+- `1 <= nums.length <= 15`
+- `-100 <= nums[i] <= 100`
+
+
+## Solution
+Approach 1: Backtracking, Deduplication with HashSet
+````JAVA
+// Time complexity: O(n * 2^n)
+// Space complexity: O(n)
+class Solution {
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> path = new LinkedList<>();
+    
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        backtracking(nums, 0);
+        return result;
+    }
+    private void backtracking(int[] nums, int startIndex) {
+        if (path.size() >= 2) {
+            result.add(new ArrayList<>(path));
+        }
+        Set<Integer> hashset = new HashSet<>();
+        for (int i = startIndex; i < nums.length; i++) {
+            if (path.size() > 0 && path.get(path.size() - 1) > nums[i] || hashset.contains(nums[i])) {
+                continue;
+            }
+            hashset.add(nums[i]);
+            path.add(nums[i]);
+            backtracking(nums, i + 1);
+            path.removeLast();
+        }
+    }
+}
+````
+
+Approach 1.2: Backtracking, Deduplication with Array as Hashset
+````JAVA
+class Solution {
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> path = new LinkedList<>();
+    
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        backtracking(nums, 0);
+        return result;
+    }
+    private void backtracking(int[] nums, int startIndex) {
+        if (path.size() >= 2) {
+            result.add(new ArrayList<>(path));
+        }
+        int[] arrayMap = new int[201]; // -100 <= nums[i] <= 100
+        for (int i = startIndex; i < nums.length; i++) {
+            if (path.size() > 0 && path.get(path.size() - 1) > nums[i] 
+                || arrayMap[nums[i] + 100] == 1) {
+                continue;
+            }
+            arrayMap[nums[i] + 100] = 1;
+            path.add(nums[i]);
+            backtracking(nums, i + 1);
+            path.removeLast();
+        }
+    }
+}
+````
