@@ -46,6 +46,7 @@ class Solution {
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         used = new boolean[nums.length];
         Arrays.fill(used, false);
+        Arrays.sort(nums);
         backtracking(nums, 0);
         return result;
     }
