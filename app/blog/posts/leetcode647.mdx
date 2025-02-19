@@ -36,7 +36,7 @@ Constraints:
 
 
 ## Solution
-Approach 1: Two pointers
+Approach 1: Expand Around Center (Two Pointers)
 ````JAVA
 // Time complexity: O(n^2)
 // Space complexity: O(1)
@@ -83,6 +83,28 @@ class Solution {
                         dp[i][j] = true;
                         count++;
                     }
+                }
+            }
+        }
+        return count;
+    }
+}
+````
+
+Approach 2.2: Dynamic Programming (concise code)
+````JAVA
+// Time complexity: O(n^2)
+// Space complexity: O(n^2)
+class Solution {
+    public int countSubstrings(String s) {
+        
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        int count = 0;
+        for (int i = s.length(); i >= 0; i--) {
+            for (int j = i; j < s.length(); j++) {
+                if (s.charAt(i) == s.charAt(j) && (j - i <= 1 || dp[i + 1][j - 1] == true)) {
+                    dp[i][j] = true;
+                    count++;
                 }
             }
         }
