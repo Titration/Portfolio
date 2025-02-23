@@ -1,0 +1,71 @@
+---
+title: 'Leetcode 409. Longest Palindrome'
+publishedAt: '2025-02-22'
+summary: 'Hash Table, String'
+number: '409'
+---
+
+## 409. Longest Palindrome
+
+Given a string `s` which consists of lowercase or uppercase letters, return the length of the longest 
+palindrome that can be built with those letters.
+
+(A palindrome is a string that reads the same forward and backward.)
+
+Letters are case sensitive, for example, `"Aa"` is not considered a palindrome.
+
+
+Example 1
+`````
+Input: s = "abccccdd"
+Output: 7
+Explanation: One longest palindrome that can be built is "dccaccd", whose length is 7.
+`````
+
+Example 2
+`````
+Input: s = "a"
+Output: 1
+Explanation: The longest palindrome that can be built is "a", whose length is 1.
+`````
+
+
+Constraints:
+
+- `1 <= s.length <= 2000`
+- `s` consists of lowercase and/or uppercase English letters only.
+
+
+## Solution
+Approach 1: Hash Map
+````JAVA
+// Time complexity: O(n)
+class Solution {
+    public int longestPalindrome(String s) {
+        
+        int longest = 0;
+        int[] map = new int[26*2];
+        char[] array = s.toCharArray();
+        
+        for (char item : array) {
+            if (Character.isUpperCase(item)) {
+                map[item - 'A']++;
+            }
+            else {
+                map[item - 'a' + 26]++;
+            }
+        }
+
+        for (int item : map) {
+            if (item % 2 == 0) {
+                longest += item;
+            }
+            else {    
+                longest += item - 1;
+            }
+        }
+
+        return longest == s.length() ? longest : longest + 1;
+    }
+}
+````
