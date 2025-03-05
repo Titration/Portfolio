@@ -1,7 +1,7 @@
 ---
 title: 'Leetcode 209. Minimum Size Subarray Sum'
 publishedAt: '2024-10-02'
-summary: 'Array'
+summary: 'Array, Sliding Window (Unfixed Length)'
 number: '209'
 ---
 
@@ -9,12 +9,13 @@ number: '209'
 
 Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target. If there is no such subarray, return 0 instead.
 
+
 Example 1
 `````
 Input: target = 7, nums = [2,3,1,2,4,3]
 Output: 2
+Explanation: The subarray [4,3] has the minimal length under the problem constraint.
 `````
-> Explanation: The subarray [4,3] has the minimal length under the problem constraint.
 
 Example 2
 `````
@@ -28,13 +29,16 @@ Input: target = 11, nums = [1,1,1,1,1,1,1,1]
 Output: 0
 `````
 
+
 Constraints:
 
 - `1 <= target <= 10^9`
 - `1 <= nums.length <= 10^5`
 - `1 <= nums[i] <= 10^4`.
 
+
 Follow up: If you have figured out the `O(n)` solution, try coding another solution of which the time complexity is `O(n log(n))`.
+
 
 ## Solution
 Approach 1: Brute force -> Time Limit Exceeded
@@ -59,7 +63,7 @@ class Solution {
 }
 ````
 
-Approach 2: Sliding window
+Approach 2: Sliding Window, Update the result inside the while loop
 ````
 // Time complexity: O(2n) = O(n)
 // Space complexity: O(1)
@@ -70,14 +74,41 @@ class Solution {
         int result = Integer.MAX_VALUE;
 
         for (int right = 0; right < nums.length; right++) {
-            sum = sum + nums[right];
+            sum += nums[right];
             while (sum >= target) {
                 result = Math.min(result, right - left + 1);
-                sum = sum - nums[left];
+                sum -= nums[left];
                 left++;
             }
         }
         return result == Integer.MAX_VALUE ? 0 : result;
+    }
+}
+````
+
+Approach 2.2: Sliding Window, Update the result outside the while loop
+````
+// Time complexity: O(n)
+// Space complexity: O(1)
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        
+        int sum = 0;
+        int left = 0;
+        int result = Integer.MAX_VALUE; // int result = nums + 1; // minimal length
+
+        for (int right = 0; right < nums.length; right++) {
+            sum += nums[right];
+            while (sum - nums[left] >= target) {
+                sum -= nums[left];
+                left++;
+            }
+            if (sum >= target) {
+                result = Math.min(result, right - left + 1);
+            }
+        }
+        
+        return (result <= nums.length) ? result : 0;
     }
 }
 ````
